@@ -12,7 +12,34 @@ In this project i analyzed tumor-normal data to identify germline and somatic va
 - Reference genome : GRCh37/hg19
 - Variant analyses : Somatic and germline Variant calling
 
-## Wrkflow 
+## Workflow 
 
-SRA Data 
+   SRA 
+    ↓
+ FASTQ Data 
+     ↓
+  FASTQC 
+     ↓
+ TRIMMOMATIC
+      ↓
+  FASTQC 
+      ↓
+  BWA-MEM
+      ↓
+  SAMTOOLS
+      ↓
+  MarkDuplicates
+      ↓
+  Base Quality Score Recalibration (BQSR)
+      ↓
+   ApplyBQSR 
+      ↓
+ MUtect2 / HaplotypeCaller 
+      ↓
+     VEP
+      ↓
+ Variant Interpretation
+
+
  
+      
