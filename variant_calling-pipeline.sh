@@ -73,7 +73,7 @@ samtools index sample_recal.bam
 #variant calling by HaplotypeCaller - for GERMLINE mutations
 -I SRR13857280_recal.bam \
 -R hg19_NOChr.fa \
--O SRR13857279.vcf.gz &
+-O SRR13857279.vcf.gz 
 
 #variant calling by Mutect2 - for SOMATIC mutations 
  gatk Mutect2 \
@@ -82,7 +82,7 @@ samtools index sample_recal.bam
 -I SRR13857280_recal.bam \
 -tumor  sm value \
 -normal sm value \
--O somatic.vcf.gz &
+-O somatic.vcf.gz 
 
 #gatk filteration - for somatic 
 gatk GetPileupSummaries \
