@@ -104,11 +104,11 @@ gatk CalculateContamination \
 -O contamnation.table \
 --tumor-segmentation segments.table 
 
-#somatic filteration - 
+# somatic filteration - 
 
-#filtermutectcalls - for somatic 
+# filtermutectcalls - for somatic 
 gatk FilterMutectCalls \
-  -R /home/BIB/Databases/HumanGenome_HG37/hg19_NoChr.fa \
+  -R hg19_NoChr.fa \
   -V somatic.unfiltered.vcf.gz \
   --contamination-table contamination.table \
   --tumor-segmentation segments.table \
@@ -125,9 +125,9 @@ gatk FilterMutectCalls \
   bcftools view -e 'ALT="*"' somatic.filtered.split.pass.vcf  -o somatic.filtered.split.filter.pass.vcf
  
 
-#germline filteration 
-#SelectVariants - SNP 
-/home/BIB/gatk-4.6.2.0/gatk SelectVariants \
+# germline filteration 
+# SelectVariants - SNP 
+/gatk SelectVariants \
 -R hg19_NOChr.fa \
 -V SAMPLE.vcf.gz \
 -select-type SNP \
@@ -138,7 +138,7 @@ gatk SelectVariants \
 -V SAMPLE.vcf.gz \
 -select-type INDEL \
 -O SAMPLE.indels.vcf.gz
-#VariantFilteration - SNP 
+# VariantFilteration - SNP 
  gatk VariantFiltration \
 -R hg19_NOChr.fa \
 -V SAMPLE.snps.vcf.gz \
@@ -150,7 +150,7 @@ gatk SelectVariants \
 --filter-name "MQRankSum-12.5" --filter-expression "MQRankSum < -12.5" \
 --filter-name "ReadPosRankSum-8" --filter-expression "ReadPosRankSum < -8.0
 
-#VariantFilteration - INDELS 
+# VariantFilteration - INDELS 
  gatk VariantFiltration \
 -R  hg19_NOChr.fa \
 -V SAMPLE.indels.vcf.gz \
