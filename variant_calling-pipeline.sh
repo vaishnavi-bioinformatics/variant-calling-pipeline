@@ -121,13 +121,14 @@ gatk FilterMutectCalls \
   --exclude-filtered \
   -O somatic.PASS.vcf.gz
 
+ #Normalize VCF variants
   bcftools norm -m -both somatic.filtered.pass.vcf -o somatic.filtered.split.pass.vcf
+  #Filter VCF 
   bcftools view -e 'ALT="*"' somatic.filtered.split.pass.vcf  -o somatic.filtered.split.filter.pass.vcf
  
-
 # germline filteration 
 # SelectVariants - SNP 
-/gatk SelectVariants \
+ gatk SelectVariants \
 -R hg19_NOChr.fa \
 -V SAMPLE.vcf.gz \
 -select-type SNP \
@@ -147,8 +148,8 @@ gatk SelectVariants \
 --filter-name "FS60" --filter-expression "FS > 60.0" \
 --filter-name "MQ40" --filter-expression "MQ < 40.0" \
 --filter-name "SOR3" --filter-expression "SOR > 3.0" \
---filter-name "MQRankSum-12.5" --filter-expression "MQRankSum < -12.5" \
---filter-name "ReadPosRankSum-8" --filter-expression "ReadPosRankSum < -8.0
+--filter-name "MQRankSum-12.5" --filter-expression "MQRankSum < -12.5" 
+--filter-name "ReadPosRankSum-8" --filter-expression "ReadPosRankSum < -8.0"
 
 # VariantFilteration - INDELS 
  gatk VariantFiltration \
@@ -159,5 +160,30 @@ gatk SelectVariants \
 --filter-name "FS200" --filter-expression "FS > 200.0" \
 --filter-name "SOR10" --filter-expression "SOR > 10.0" \
 --filter-name "ReadPosRankSum-20" --filter-expression "ReadPosRankSum < -20.0"
+
+#SelectVariants - SNPS
+ gatk SelectVariants \
+-V SAMPLE.snps.filtered.vcf.gz \
+--exclude-filtered true \
+-O SAMPLE.snps.pass.vcf.gz
+#SelectVariants - INDELS
+gatk SelectVariants \
+-V SAMPLE.indels.filtered.vcf.gz \
+--exclude-filtered true \
+-O SAMPLE.indels.pass.vcf.gz
+
+#Merging SNPS and INDELS vcf.gz files 
+gatk MergeVcfs \
+-I SAMPLE.snps.pass.vcf.gz \
+-I SAMPLE.indels.pass.vcf.gz \
+-O SAMPLE.germline.pass.vcf.gz
+
+#Normalize VCF variants 
+bcftools norm -m -both Sample_PASS.vcf -o Sample.split.pass.vcf
+#Filter VCF 
+bcftools view -e 'ALT="*"' Sample.split.pass.vcf  -o Sample.split.filter.pass.vcf
+
+
+
 
 
