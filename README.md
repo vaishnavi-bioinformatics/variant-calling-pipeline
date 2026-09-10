@@ -14,32 +14,6 @@ In this project i analyzed tumor-normal data to identify germline and somatic va
 
 ## Workflow 
 
-   SRA 
-    ↓
- FASTQ Data 
-     ↓
-  FASTQC 
-     ↓
- TRIMMOMATIC
-      ↓
-  FASTQC 
-      ↓
-  BWA-MEM
-      ↓
-  SAMTOOLS
-      ↓
-  MarkDuplicates
-      ↓
-  Base Quality Score Recalibration (BQSR)
-      ↓
-   ApplyBQSR 
-      ↓
- MUtect2 / HaplotypeCaller 
-      ↓
-     VEP
-      ↓
- Variant Interpretation
-
 
  
       
