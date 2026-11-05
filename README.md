@@ -15,59 +15,53 @@ In this project i analyzed tumor-normal data to identify germline and somatic va
 - Reference genome : GRCh37/hg19
 - Variant analyses : Somatic and germline Variant calling
 
-## Workflow 
+# Somatic and Germline Variant Calling Pipeline
 
-STEP 1: Data Download 
+A complete bioinformatic workflow designed for paired tumor-normal whole-exome sequencing (WXS) data analysis, following GATK best practices. This pipeline takes raw sequencing data from the NCBI Sequence Read Archive (SRA) through quality control, alignment, pre-processing, variant calling, filtering, and functional annotation.
 
-Tool : fastq-dump 
+---
 
-Download the raw sequencing data from the NCBI SRA.
+##  Project Overview
 
-STEP 2: Quality Control -
+* **Data Source:** NCBI Sequence Read Archive (SRA)
+* **Data Type:** Whole-Exome Sequencing (WXS)
+* **Samples:** Tumor (`SRR13857279`) & Matched Normal (`SRR13857280`)
+* **Reference Genome:** GRCh37 / hg19
+* **Variant Analyses:** Somatic & Germline Variant Calling
 
-Tool : FastQC
+---
 
-Assessing the raw sequencing reads, including per base sequence quality,Per tile sequence quality,Per sequence quality scores,Per base sequence content,Per sequence GC content,Per base N content,
-Sequence Length Distribution,Sequence Duplication Levels,Overrepresented sequences,Adapter Content.
+##  Prerequisites & Dependencies
 
-STEP 3: Quality trimming - 
+Ensure the following tools are installed and available in your system's `PATH` (or managed via Conda/Docker):
 
-Tool : Trimmomatic 
+* `sratoolkit` (>= 2.11)
+* `FastQC` (>= 0.11)
+* `Trimmomatic` (>= 0.39)
+* `bwa` (>= 0.7.17)
+* `samtools` (>= 1.12)
+* `picard` (>= 2.25)
+* `gatk4` (>= 4.2)
+* `ensembl-vep` (>= 104)
 
-removes adapter and low-quality sequences - low quality bases, ambiguous nucleotides and short reads.
+---
 
-STEP 4: Alignment -
+##  Repository Structure
 
-Tool - BWA 
-
-BWA (Burrows-Wheeler Aligner) is the industry-standard software package for mapping low-divergent sequencing reads against a large reference genome (like human hg19).
-
-STEP 5: Converting SAM file to BAM file - 
-
-Tools - SAMTOOLS 
-
-SAM files are converted to BAM files as they are compressed, binary versions of SAM files.
-
-STEP 6: Sort the BAM File -
-
-Tools - SAMTOOLS 
-
-BAM file is sorted by the genomic coordinates,Sorting organizes them by chromosome and genomic position.
-
-STEP 7: Index the BAM File -
-
-Tools - SAMTOOLS 
-
-Indexing creates a companion .bai file (input_sorted.bam.bai), which allows tools to quickly jump to any genomic region without reading the entire file.
-
-STEP 8: AddOrReplaceReadGroups
-
-Tools - AddOrReplaceReadGroups 
-
-The AddOrReplaceReadGroups tool is specifically used to add, fix, or replace Read Group (RG) metadata in the BAM file.
-
-STEP 9: marked duplicates
-
-Tools - picard MarkDuplicates
-
-The duplicates are marked and the duplication rate is given in the metrices.txt file 
+```text
+├── scripts/
+│   ├── 01_download.sh
+│   ├── 02_fastqc.sh
+│   ├── 03_trimmomatic.sh
+│   ├── 04_bwa_align.sh
+│   ├── 05_sam_to_bam.sh
+│   ├── 06_sort_bam.sh
+│   ├── 07_index_bam.sh
+│   ├── 08_add_read_groups.sh
+│   ├── 09_mark_duplicates.sh
+│   ├── 10_bqsr.sh
+│   ├── 11_germline_calling.sh
+│   ├── 12_mutect2_somatic.sh
+│   └── 13_vep_annotation.sh
+├── data/          # Input/Output data directories (git-ignored)
+└── README.md
