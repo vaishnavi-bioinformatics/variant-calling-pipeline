@@ -2,18 +2,7 @@
 
 This document describes the command-line workflow used for tumor-normal whole-exome sequencing (WES) variant analysis.
 
-## 1. Dataset Information
-
-| Sample | Accession | Sample type |
-|---|---|---|
-| Tumor | SRR13857279 | Breast cancer tumor |
-| Normal | SRR13857280 | Matched blood normal |
-
-- Sequencing type: Paired-end WES
-- Reference genome: GRCh37 / hg19
-- Analysis: Somatic and germline variant identification
-
-## 2. SRA Data Download
+## 1. SRA Data Download
 
 Download the sequencing data using SRA Toolkit.
 
@@ -22,7 +11,7 @@ prefetch SRR13857279
 prefetch SRR13857280
 ```
 
-## 3. FASTQ Conversion
+## 2. FASTQ Conversion
 
 Convert SRA files into paired-end FASTQ files.
 
@@ -38,7 +27,7 @@ Expected files:
 - SRR13857280_1.fastq.gz
 - SRR13857280_2.fastq.gz
 
-## 4. Raw Read Quality Control
+## 3. Raw Read Quality Control
 
 Tool: FastQC
 
@@ -50,7 +39,7 @@ fastqc SRR13857279_1.fastq.gz SRR13857279_2.fastq.gz
 fastqc SRR13857280_1.fastq.gz SRR13857280_2.fastq.gz
 ```
 
-## 5. Adapter Trimming and Quality Filtering
+## 4. Adapter Trimming and Quality Filtering
 
 Tool: Trimmomatic v0.39
 
@@ -78,7 +67,7 @@ ILLUMINACLIP:adapters.fa:2:30:10 \
 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 ```
 
-## 6. Post-trimming Quality Control
+## 5. Post-trimming Quality Control
 
 Assess the quality of the paired trimmed reads.
 
@@ -88,7 +77,7 @@ fastqc SRR13857279_1p.fastq.gz SRR13857279_2p.fastq.gz
 fastqc SRR13857280_1p.fastq.gz SRR13857280_2p.fastq.gz
 ```
 
-## 7. Reference Genome Alignment
+## 6. Reference Genome Alignment
 
 Tool: BWA
 
@@ -112,7 +101,7 @@ SRR13857280_2p.fastq.gz \
 > normal.sam
 ```
 
-## 8. SAM to BAM Conversion
+## 7. SAM to BAM Conversion
 
 Tool: SAMtools
 
@@ -122,7 +111,7 @@ samtools view -b tumor.sam -o tumor.bam
 samtools view -b normal.sam -o normal.bam
 ```
 
-## 9. BAM Sorting and Indexing
+## 8. BAM Sorting and Indexing
 
 ```bash
 samtools sort tumor.bam -o tumor_sorted.bam
@@ -134,7 +123,7 @@ samtools index tumor_sorted.bam
 samtools index normal_sorted.bam
 ```
 
-## 10. Read Group Assignment
+## 9. Read Group Assignment
 
 Tool: GATK AddOrReplaceReadGroups
 
@@ -166,7 +155,7 @@ gatk AddOrReplaceReadGroups \
 -RGSM Normal
 ```
 
-## 11. Duplicate Marking
+## 10. Duplicate Marking
 
 Tool: Picard MarkDuplicates
 
@@ -190,7 +179,7 @@ O=normal_markdup.bam \
 M=normal_metrics.txt
 ```
 
-## 12. Base Quality Score Recalibration (BQSR)
+## 11. Base Quality Score Recalibration (BQSR)
 
 Tool: GATK
 
@@ -473,21 +462,8 @@ Annotation can include:
 - Existing variant identifiers
 - Clinical significance where available
 
-## 20. Software and Tools
 
-| Tool | Application |
-|---|---|
-| SRA Toolkit | Sequence data retrieval |
-| FastQC | Read quality assessment |
-| Trimmomatic | Read trimming |
-| BWA | Sequence alignment |
-| SAMtools | BAM processing |
-| GATK | Variant calling and filtering |
-| Picard | Duplicate marking |
-| BCFtools | VCF processing and normalization |
-| Ensembl VEP | Functional annotation |
-
-## 21. Notes
+## 20. Notes
 
 - Tumor and normal samples were processed separately before paired somatic variant calling.
 - HaplotypeCaller was used for germline variant identification.
