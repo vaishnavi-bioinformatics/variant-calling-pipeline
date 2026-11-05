@@ -6,27 +6,13 @@
 
 In this project i analyzed tumor-normal data to identify germline and somatic variants.The analysis included quality control,trimming,alignment,variant calling,variant filtering , VEP annotation and functional interpretation.
 
-### Dataset 
-
-- Data source : NCBI Sequence Read Archive (SRA) 
-- Data type : Whole-exome sequencing (WXS)
-- Samples : Tumor and normal
-- SRA accessions - SRR13857279 & SRR13857280
-- Reference genome : GRCh37/hg19
-- Variant analyses : Somatic and germline Variant calling
-
-# Whole Exome Sequencing (WES) Variant Calling and Annotation
-
-## Project Overview
-
-This project demonstrates a bioinformatics workflow for identifying, processing, filtering and annotating genetic variants from whole-exome sequencing (WES) data using a tumor-normal paired sample approach.
-
 ## Dataset Information
 
 - **Study:** Breast cancer
+- **Data source :** NCBI Sequence Read Archive (SRA) 
 - **Tumor sample:** SRR13857279
 - **Normal sample:** SRR13857280
-- **Sequencing type:** Whole Exome Sequencing (WES)
+- **Sequencing type:** Whole Exome Sequencing (WXS)
 - **Reference genome:** GRCh37 / hg19
 
 ## Bioinformatics Workflow
@@ -63,6 +49,4 @@ This project demonstrates a bioinformatics workflow for identifying, processing,
 
 Completed as an educational bioinformatics project.
 
-## Disclaimer
 
-This project is for educational and research-learning purposes. The findings are not intended for clinical diagnosis or treatment decisions.
