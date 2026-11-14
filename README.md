@@ -23,8 +23,8 @@ In this project i analyzed tumor-normal data to identify germline and somatic va
 | 2 | Trimmomatic | Adapter and quality trimming |
 | 3 | BWA | Reference genome alignment |
 | 4 | SAMtools | BAM processing and indexing |
-| 5 | GATK | Germline Variant calling |
-| 6 | MUTECT2 | Somatic Variant Calling 
+| 5 | GATK HaplotypeCaller| Germline Variant calling |
+| 6 | GATK Mutect2 | Somatic Variant Calling 
 | 6 | BCFtools | Variant processing and filtering |
 | 7 | Ensembl VEP | Functional variant annotation |
 
