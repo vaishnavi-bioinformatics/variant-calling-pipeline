@@ -22,7 +22,7 @@ Three variants in DNA-damage response and tumor-suppressor genes (`TP53`, `ATR`)
 | **ATR** | 51 | `48, 3` | **5.88%** | `51, 0` | `PASS` |
 | **ATR** | 231 | `227, 4` | **1.73%** | `170, 0` | `PASS` |
 
-> **Note:** All three records had a `PASS` filter status in the supplied results. No alternate reads were observed in the matched normal sample for these variants.
+
 
 ### Variant Interpretation
 
@@ -39,10 +39,19 @@ Germline variant calling was performed using **GATK HaplotypeCaller** on the mat
 
 Two variants were identified for downstream functional and clinical interpretation:
 
-- **`COL14A1`** – chr8:121220474 G>A; missense variant.
-- **`SDHB`** – chr1:17349159 G>A; missense variant.
+| Gene | Position (GRCh37) | Ref | Alt | Genotype | AD (Ref, Alt) | DP | VAF | Consequence |
+|---|---|---|---|---|---|---:|---:|---|
+| SDHB | chr1:17349159 | G | A | 0/1 | 35, 37 | 72 | 51.4% | Missense |
+| COL14A1 | chr8:121220474 | G | A | 0/1 | 50, 40 | 90 | 44.4% | Missense |
 
 Both variants showed heterozygous genotypes in the  annotation results.
+
+### Variant Interpretation
+
+- **`SDHB` (chr1:17349159 G>A):** A missense variant with a heterozygous genotype (`0/1`). The variant had 37 alternate reads out of 72 total reads, corresponding to an AD-derived VAF of 51.4%.
+
+- **`COL14A1` (chr8:121220474 G>A):** A missense variant with a heterozygous genotype (`0/1`). The variant had 40 alternate reads out of 90 total reads, corresponding to an AD-derived VAF of 44.4%.
+
 
 ---
 
