@@ -44,7 +44,6 @@ Two variants were identified for downstream functional and clinical interpretati
 | SDHB | chr1:17349159 | G | A | 0/1 | 35, 37 | 72 | 51.4% | Missense |
 | COL14A1 | chr8:121220474 | G | A | 0/1 | 50, 40 | 90 | 44.4% | Missense |
 
-Both variants showed heterozygous genotypes in the  annotation results.
 
 ### Variant Interpretation
 
