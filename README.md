@@ -46,8 +46,5 @@ In this project i analyzed tumor-normal data to identify germline and somatic va
 - Tumor-normal variant analysis
 - Functional annotation
 
-## Project Status
-
-Completed as an educational bioinformatics project.
 
 
